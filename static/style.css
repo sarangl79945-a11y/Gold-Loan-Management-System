@@ -1,0 +1,117 @@
+body{
+
+    background:#f4f6f9;
+
+    font-family:Arial,Helvetica,sans-serif;
+
+}
+
+.navbar{
+
+    border-bottom:4px solid gold;
+
+}
+
+.card{
+
+    border:none;
+
+    border-radius:15px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.1);
+
+}
+
+.card-header{
+
+    font-weight:bold;
+
+}
+
+.table{
+
+    background:white;
+
+}
+
+.table thead{
+
+    background:#343a40;
+
+    color:white;
+
+}
+
+.btn{
+
+    border-radius:8px;
+
+}
+
+.btn-primary{
+
+    background:#0d6efd;
+
+}
+
+.btn-success{
+
+    background:#198754;
+
+}
+
+.btn-warning{
+
+    color:white;
+
+}
+
+.btn-danger{
+
+    background:#dc3545;
+
+}
+
+.dashboard-card{
+
+    border-radius:15px;
+
+    color:white;
+
+    padding:25px;
+
+    transition:.3s;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.logo{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+}
+
+.search-box{
+
+    max-width:350px;
+
+}
+
+.footer{
+
+    margin-top:40px;
+
+    text-align:center;
+
+    color:gray;
+
+}

@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2>🏦 Gold Loans</h2>
+
+    <a href="{{ url_for('add_loan') }}"
+       class="btn btn-primary">
+
+        ➕ New Loan
+
+    </a>
+
+</div>
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <table class="table table-bordered table-hover align-middle">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Loan No.</th>
+
+                    <th>Customer</th>
+
+                    <th>Gold Item</th>
+
+                    <th>Net Weight</th>
+
+                    <th>Loan Amount</th>
+
+                    <th>Interest %</th>
+
+                    <th>Outstanding</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for loan in loans %}
+
+                <tr>
+
+                    <td>
+
+                        <strong>
+
+                            {{ loan["loan_number"] }}
+
+                        </strong>
+
+                    </td>
+
+                    <td>
+
+                        {{ loan["customer_name"] }}
+
+                    </td>
+
+                    <td>
+
+                        {{ loan["gold_item"] }}
+
+                    </td>
+
+                    <td>
+
+                        {{ loan["net_weight"] }} g
+
+                    </td>
+
+                    <td>
+
+                        ₹ {{ "%.2f"|format(loan["loan_amount"]) }}
+
+                    </td>
+
+                    <td>
+
+                        {{ loan["interest_rate"] }} %
+
+                    </td>
+
+                    <td>
+
+                        ₹ {{ "%.2f"|format(loan["outstanding_amount"]) }}
+
+                    </td>
+
+                    <td>
+
+                        {% if loan["status"] == "Active" %}
+
+                            <span class="badge bg-success">
+
+                                Active
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-secondary">
+
+                                Closed
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+            {% else %}
+
+                <tr>
+
+                    <td colspan="8" class="text-center">
+
+                        No loans available.
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

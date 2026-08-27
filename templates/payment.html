@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-header bg-success text-white">
+
+        <h3>
+
+            Receive Payment
+
+        </h3>
+
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <label>
+
+                        Loan Number
+
+                    </label>
+
+                    <input
+                        class="form-control"
+                        value="{{ loan.loan_number }}"
+                        readonly>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label>
+
+                        Customer
+
+                    </label>
+
+                    <input
+                        class="form-control"
+                        value="{{ loan.name }}"
+                        readonly>
+
+                </div>
+
+                <div class="col-md-4 mt-3">
+
+                    <label>
+
+                        Outstanding
+
+                    </label>
+
+                    <input
+                        class="form-control"
+                        value="{{ loan.outstanding_amount }}"
+                        readonly>
+
+                </div>
+
+                <div class="col-md-4 mt-3">
+
+                    <label>
+
+                        Interest Paid
+
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="interest_paid"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <div class="col-md-4 mt-3">
+
+                    <label>
+
+                        Principal Paid
+
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="principal_paid"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <div class="col-md-12 mt-3">
+
+                    <label>
+
+                        Remarks
+
+                    </label>
+
+                    <textarea
+                        name="remarks"
+                        class="form-control"></textarea>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <button
+                class="btn btn-success">
+
+                Save Payment
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

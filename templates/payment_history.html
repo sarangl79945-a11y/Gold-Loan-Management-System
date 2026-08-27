@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-header bg-primary text-white">
+
+        <h3>
+
+            Payment History
+
+        </h3>
+
+        <small>
+
+            Loan :
+            {{ loan.loan_number }}
+
+            |
+
+            Customer :
+            {{ loan.name }}
+
+        </small>
+
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-bordered table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Date</th>
+
+                    <th>Interest</th>
+
+                    <th>Principal</th>
+
+                    <th>Total</th>
+
+                    <th>Balance</th>
+
+                    <th>Remarks</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for payment in payments %}
+
+                <tr>
+
+                    <td>{{ payment.payment_date }}</td>
+
+                    <td>₹ {{ payment.interest_paid }}</td>
+
+                    <td>₹ {{ payment.principal_paid }}</td>
+
+                    <td>₹ {{ payment.total_paid }}</td>
+
+                    <td>₹ {{ payment.balance }}</td>
+
+                    <td>{{ payment.remarks }}</td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

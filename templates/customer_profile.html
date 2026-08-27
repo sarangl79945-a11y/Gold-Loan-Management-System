@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="row">
+
+        <!-- Customer Profile -->
+
+        <div class="col-md-4">
+
+            <div class="card shadow">
+
+                <div class="card-body text-center">
+
+                    {% if customer.photo %}
+
+                        <img src="{{ url_for('static',
+                        filename='uploads/customers/' + customer.photo) }}"
+                        width="180"
+                        height="180"
+                        class="rounded-circle border mb-3">
+
+                    {% else %}
+
+                        <img src="https://via.placeholder.com/180"
+                        class="rounded-circle border mb-3">
+
+                    {% endif %}
+
+                    <h3>{{ customer.name }}</h3>
+
+                    <hr>
+
+                    <p><b>📱 Mobile :</b> {{ customer.mobile }}</p>
+
+                    <p><b>🪪 Aadhaar :</b> {{ customer.aadhaar }}</p>
+
+                    <p><b>📧 Email :</b> {{ customer.email }}</p>
+
+                    <p><b>👤 Gender :</b> {{ customer.gender }}</p>
+
+                    <p><b>💼 Occupation :</b> {{ customer.occupation }}</p>
+
+                    <p><b>🏠 Address :</b> {{ customer.address }}</p>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+
+                    Nominee Details
+
+                </div>
+
+                <div class="card-body">
+
+                    <p>
+
+                        <b>Name :</b>
+
+                        {{ customer.nominee_name }}
+
+                    </p>
+
+                    <p>
+
+                        <b>Relation :</b>
+
+                        {{ customer.nominee_relation }}
+
+                    </p>
+
+                    <p>
+
+                        <b>Mobile :</b>
+
+                        {{ customer.nominee_mobile }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Loan Details -->
+
+        <div class="col-md-8">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-success text-white">
+
+                    Customer Loan Details
+
+                </div>
+
+                <div class="card-body">
+
+                    <h5>
+
+                        Outstanding Balance :
+
+                        ₹ {{ outstanding }}
+
+                    </h5>
+
+                    <table class="table table-bordered table-hover">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>Loan No</th>
+
+                            <th>Loan Amount</th>
+
+                            <th>Outstanding</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for loan in loans %}
+
+                        <tr>
+
+                            <td>{{ loan.loan_number }}</td>
+
+                            <td>₹ {{ loan.loan_amount }}</td>
+
+                            <td>₹ {{ loan.outstanding_amount }}</td>
+
+                            <td>{{ loan.status }}</td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

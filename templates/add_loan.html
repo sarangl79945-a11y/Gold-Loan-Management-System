@@ -1,0 +1,446 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-header bg-warning">
+
+        <h3 class="mb-0">
+
+            🏦 New Gold Loan
+
+        </h3>
+
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST">
+
+            <!-- ================= Customer Information ================= -->
+
+            <h5 class="text-primary mb-3">
+
+                👤 Customer Information
+
+            </h5>
+
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+
+                    <label class="form-label">
+
+                        Loan Number
+
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="{{ loan_number }}"
+                        readonly>
+
+                </div>
+
+                <div class="col-md-8 mb-3">
+
+                    <label class="form-label">
+
+                        Select Customer
+
+                    </label>
+
+                    <select
+                        name="customer_id"
+                        class="form-select"
+                        required>
+
+                        <option value="">
+
+                            Select Customer
+
+                        </option>
+
+                        {% for customer in customers %}
+
+                        <option value="{{ customer['id'] }}">
+
+                            {{ customer['name'] }} -
+                            {{ customer['mobile'] }}
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <!-- ================= Gold Information ================= -->
+
+            <h5 class="text-primary mb-3">
+
+                💍 Gold Information
+
+            </h5>
+
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+
+                    <label class="form-label">
+
+                        Gold Item
+
+                    </label>
+
+                    <select
+                        name="gold_item"
+                        class="form-select">
+
+                        <option>Ring</option>
+                        <option>Chain</option>
+                        <option>Necklace</option>
+                        <option>Bangle</option>
+                        <option>Coin</option>
+                        <option>Other</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label class="form-label">
+
+                        Gross Weight (g)
+
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.001"
+                        name="gross_weight"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label class="form-label">
+
+                        Net Weight (g)
+
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.001"
+                        id="net_weight"
+                        name="net_weight"
+                        class="form-control"
+                        oninput="calculateLoan()"
+                        required>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Purity
+
+                    </label>
+
+                    <select
+                        name="purity"
+                        class="form-select">
+
+                        <option>18K</option>
+                        <option>20K</option>
+                        <option selected>22K</option>
+                        <option>24K</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Gold Rate (₹ / gram)
+
+                    </label>
+
+                    <input
+                        type="number"
+                        id="gold_rate"
+                        name="gold_rate"
+                        class="form-control"
+                        oninput="calculateLoan()"
+                        required>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <!-- ================= Loan Information ================= -->
+
+            <h5 class="text-primary mb-3">
+
+                💰 Loan Information
+
+            </h5>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Gold Value
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="gold_value"
+                        name="gold_value"
+                        class="form-control"
+                        readonly>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Eligible Loan (75%)
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="eligible_amount"
+                         name="eligible_amount"
+                        class="form-control"
+                        readonly>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+
+                    <label class="form-label">
+
+                        Loan Amount
+
+                    </label>
+
+                    <input
+                        type="number"
+                        name="loan_amount"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label class="form-label">
+
+                        Interest Rate (%)
+
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="interest_rate"
+                        class="form-control"
+                        value="12"
+                        required>
+
+                </div>
+                <div class="col-md-4 mb-3">
+
+    <label class="form-label">
+
+        Quantity
+
+    </label>
+
+    <input
+        type="number"
+        name="quantity"
+        value="1"
+        min="1"
+        class="form-control"
+        required>
+
+</div>
+<div class="col-md-4 mb-3">
+
+    <label class="form-label">
+
+        Stone Weight (g)
+
+    </label>
+
+    <input
+        type="number"
+        step="0.001"
+        name="stone_weight"
+        value="0"
+        class="form-control"
+        required>
+
+</div>
+<div class="col-md-12 mb-3">
+
+    <label class="form-label">
+
+        Description
+
+    </label>
+
+    <textarea
+        name="description"
+        class="form-control"
+        rows="2"></textarea>
+
+</div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label class="form-label">
+
+                        Status
+
+                    </label>
+
+                    <select
+                        name="status"
+                        class="form-select">
+
+                        <option selected>
+
+                            Active
+
+                        </option>
+
+                        <option>
+
+                            Closed
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Loan Date
+
+                    </label>
+
+                    <input
+                        type="date"
+                        name="loan_date"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Due Date
+
+                    </label>
+
+                    <input
+                        type="date"
+                        name="due_date"
+                        class="form-control"
+                        required>
+
+                </div>
+
+            </div>
+
+            <div class="text-center">
+
+                <button
+                    type="submit"
+                    class="btn btn-success btn-lg">
+
+                    💾 Save Loan
+
+                </button>
+
+                <a href="{{ url_for('loans') }}"
+                   class="btn btn-secondary btn-lg">
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+function calculateLoan(){
+
+    let weight =
+        parseFloat(document.getElementById("net_weight").value) || 0;
+
+    let rate =
+        parseFloat(document.getElementById("gold_rate").value) || 0;
+
+    let value = weight * rate;
+
+    let eligible = value * 0.75;
+
+    document.getElementById("gold_value").value =
+        value.toFixed(2);
+
+    document.getElementById("eligible_amount").value =
+        eligible.toFixed(2);
+
+}
+
+</script>
+
+{% endblock %}

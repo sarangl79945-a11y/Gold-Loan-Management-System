@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2>👥 Customers</h2>
+
+    <a href="{{ url_for('add_customer') }}"
+       class="btn btn-primary">
+
+        ➕ Add Customer
+
+    </a>
+
+</div>
+
+<form method="GET"
+      action="{{ url_for('customers') }}"
+      class="mb-4">
+
+    <div class="input-group">
+
+        <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Search by Name, Mobile or Aadhaar"
+            value="{{ search }}">
+
+        <button
+            class="btn btn-success">
+
+            🔍 Search
+
+        </button>
+
+    </div>
+
+</form>
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <table class="table table-bordered table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Name</th>
+
+                    <th>Mobile</th>
+
+                    <th>Address</th>
+
+                    <th>Aadhaar</th>
+                    <th>Photo</th>
+
+                    <th width="170">
+
+                        Action
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for customer in customers %}
+
+                <tr>
+
+                    <td>{{ customer["id"] }}</td>
+
+                    <td>
+
+<a href="{{ url_for('customer_profile', id=customer.id) }}">
+
+{{ customer.name }}
+
+</a>
+
+</td>
+
+                    <td>{{ customer["mobile"] }}</td>
+
+                    <td>{{ customer["address"] }}</td>
+
+                    <td>{{ customer["aadhaar"] }}</td>
+                    <td>
+
+    {% if customer["photo"] %}
+
+        <img src="{{ url_for('static',
+        filename='uploads/customers/' + customer['photo']) }}"
+        width="60"
+        height="60"
+        class="rounded-circle border">
+
+    {% else %}
+
+        <img src="https://via.placeholder.com/60"
+        width="60"
+        height="60"
+        class="rounded-circle border">
+
+    {% endif %}
+
+</td>
+
+                    <td>
+
+                        <a href="{{ url_for('edit_customer', id=customer['id']) }}"
+                           class="btn btn-warning btn-sm">
+
+                            ✏ Edit
+
+                        </a>
+
+                        <a href="{{ url_for('delete_customer', id=customer['id']) }}"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Delete this customer?')">
+
+                            🗑 Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% else %}
+
+                <tr>
+
+                    <td colspan="6"
+                        class="text-center">
+
+                        No customers found.
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
