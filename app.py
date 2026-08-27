@@ -16,8 +16,14 @@ def login():
 
     if request.method == "POST":
 
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
+
+        if not username or not password:
+            return render_template(
+                "login.html",
+                error="Please enter username and password"
+            )
 
         conn = get_connection()
         cursor = conn.cursor()
@@ -36,8 +42,9 @@ def login():
 
             if user["role"] == "admin":
                 return redirect(url_for("admin"))
+
             if user["role"] == "employee":
-             return redirect(url_for("employee"))
+                return redirect(url_for("employee"))
 
             return redirect(url_for("home"))
 
